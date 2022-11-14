@@ -21,7 +21,8 @@ const inputData: any = useStorage('cp-crew-button-data', {
     "cpStreetAddress": "Calle Poeta Campos Vasallo 30",
     "cpCity": "Alicante",
     "cpState": "Alicante",
-    "cpCountry": "Spain"
+    "cpCountry": "Spain",
+		"cpZipcode": "03004"
   }
 });
 const lastChanged = useLastChanged(inputData.value);
