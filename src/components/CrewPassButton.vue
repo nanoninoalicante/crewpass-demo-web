@@ -11,6 +11,7 @@ const inputData = props.inputData;
         :data-cp-gender="inputData.data.cpGender" :data-cp-country-code="inputData.data.cpCountryCode"
         :data-cp-phone="inputData.data.cpPhone" :data-cp-street-address="inputData.data.cpStreetAddress"
         :data-cp-city="inputData.data.cpCity" :data-cp-state="inputData.data.cpState"
+        :data-cp-zipcode="inputData.data.cpZipcode"
         :data-cp-country="inputData.data.cpCountry" :data-cp-popup-url="inputData.data.cpPopupUrl">CP Button
         Loading
     </div>
