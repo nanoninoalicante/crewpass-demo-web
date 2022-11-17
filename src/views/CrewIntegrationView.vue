@@ -92,7 +92,16 @@ onMounted(() => {
                     <label
                         class="text-sm italic ml-4 font-medium text-gray-400"
                         for="inputData.data[item.key]"
-                        >{{ item.key }}</label
+                        >{{ item.key }}
+                        <span v-if="item.key === 'cpCountryIsoCode'">
+                            -
+                            <a
+                                href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
+                                target="_blank"
+                                class="underline hover:text-gray-600"
+                                >ISO 3166 Alpha-3</a
+                            ></span
+                        ></label
                     >
                     <input
                         v-model="inputData.data[item.key]"
