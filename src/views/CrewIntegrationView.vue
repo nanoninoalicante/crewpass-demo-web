@@ -94,7 +94,12 @@ onMounted(() => {
                         class="text-sm italic ml-4 font-medium text-gray-400"
                         for="inputData.data[item.key]"
                         >{{ item.key }}
-                        <span v-if="item.key === 'cpCountryIsoCode'">
+                        <span
+                            v-if="
+                                item.key === 'cpCountryIsoCode' ||
+                                item.key === 'cpNationalityIsoCode'
+                            "
+                        >
                             -
                             <a
                                 href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
