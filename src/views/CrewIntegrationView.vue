@@ -26,6 +26,7 @@ const inputData: any = useStorage("cp-crew-button-data", {
         cpState: "Alicante",
         cpCountry: "Spain",
         cpCountryIsoCode: "ESP",
+        cpNationalityIsoCode: "ESP",
         cpZipcode: "03004",
     },
 });

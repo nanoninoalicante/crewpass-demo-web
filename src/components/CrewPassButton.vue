@@ -21,6 +21,7 @@ const inputData = props.inputData;
         :data-cp-state="inputData.data.cpState"
         :data-cp-zipcode="inputData.data.cpZipcode"
         :data-cp-country-iso-code="inputData.data.cpCountryIsoCode"
+        :data-cp-nationality-iso-code="inputData.data.cpNationalityIsoCode"
         :data-cp-country="inputData.data.cpCountry"
         :data-cp-popup-url="inputData.data.cpPopupUrl"
     >
