@@ -8,7 +8,8 @@ const popupUrl = ref(
     import.meta.env.VITE_CP_POPUP_URL_CREW ||
         "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding"
 );
-const inputData: any = useStorage("cp-crew-button-data", {
+const storageKey = "cp-crew-button-data";
+const inputData: any = useStorage(storageKey, {
     data: {
         cpPopupUrl: popupUrl.value,
         cpPartner: "yotspot",
@@ -49,6 +50,11 @@ const restoreSettings = () => {
     window.location.reload();
 };
 
+const clearCache = () => {
+    useStorage("cp-crew-user", null);
+    window.location.reload();
+};
+
 useEventListener(window, "message", (message: any) => {
     console.log("message origin: ", message.origin);
     console.log("message: ", message.data);
@@ -67,9 +73,15 @@ onMounted(() => {
         <h1 id="title" class="text-lg font-medium">Crew Integration</h1>
         <button
             @click="restoreSettings"
-            class="mt-4 mb-10 py-2 px-4 rounded-xl bg-orange-400 hover:bg-gray-400 text-md font-medium"
+            class="mt-4 mb-1 py-2 px-4 rounded-xl bg-orange-400 hover:bg-gray-400 text-md font-medium"
         >
             Restore Default Settings
+        </button>
+        <button
+            @click="clearCache"
+            class="mt-4 mb-10 py-2 px-4 rounded-xl bg-orange-500 hover:bg-gray-400 text-md font-medium"
+        >
+            Clear Cache
         </button>
         <div id="cp-holder-1" class="flex justify-center flex-col items-center">
             <button
