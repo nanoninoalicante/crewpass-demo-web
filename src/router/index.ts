@@ -20,6 +20,11 @@ const router = createRouter({
             component: () => import("../views/CrewIntegrationCleanView.vue"),
         },
         {
+            path: "/agency-dev",
+            name: "agencyintegration-dev",
+            component: () => import("../views/AgencyIntegrationView.vue"),
+        },
+        {
             path: "/crew-messages",
             name: "crewintegration-messages",
             component: () =>
