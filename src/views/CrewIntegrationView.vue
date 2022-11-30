@@ -51,8 +51,8 @@ const restoreSettings = () => {
 };
 
 const clearCache = () => {
-    useStorage("cp-crew-user", null);
-    window.location.reload();
+    const user = useStorage("cp-crew-user", null);
+    user.value = null;
 };
 
 useEventListener(window, "message", (message: any) => {
