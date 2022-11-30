@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useEventListener } from "@vueuse/core";
+
+const messages = ref([]);
 
 useEventListener(window, "message", (message: any) => {
     console.log("message origin: ", message.origin);
     console.log("message: ", message.data);
+    messages.value.push(message);
 });
 
 onMounted(() => {
@@ -37,6 +40,19 @@ onMounted(() => {
                 <div id="cp-login"></div>
                 <div id="cp-login-response"></div>
             </div>
+        </div>
+        <div v-if="messages.length > 0" class="mt-8 w-full">
+            <h1 id="title" class="text-md font-medium text-gray-500">
+                Messages
+            </h1>
+            <ul class="mt-4">
+                <li
+                    v-for="message in messages"
+                    class="p-2 m-1 bg-gray-200 rounded-xl"
+                >
+                    <pre class="text-xs text-gray-600">{{ message }}</pre>
+                </li>
+            </ul>
         </div>
     </main>
 </template>
