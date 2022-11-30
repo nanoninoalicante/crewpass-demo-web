@@ -47,12 +47,17 @@ const update = () => {
 
 const restoreSettings = () => {
     inputData.value = null;
-    window.location.reload();
+    setTimeout(() => {
+        window.location.reload();
+    }, 300);
 };
 
 const clearCache = () => {
     const user = useStorage("cp-crew-user", null);
     user.value = null;
+    setTimeout(() => {
+        window.location.reload();
+    }, 300);
 };
 
 useEventListener(window, "message", (message: any) => {
