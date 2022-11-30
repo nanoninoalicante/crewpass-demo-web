@@ -3,11 +3,14 @@ import { onMounted, ref } from "vue";
 import { useEventListener } from "@vueuse/core";
 
 const messages = ref([]);
+const origin = ref("");
 
 useEventListener(window, "message", (message: any) => {
     console.log("message origin: ", message.origin);
     console.log("message: ", message.data);
-    messages.value.push(message);
+    if (message.origin !== origin.value) {
+        messages.value.push(message);
+    }
 });
 
 onMounted(() => {
@@ -16,12 +19,12 @@ onMounted(() => {
             c = document.createElement("link");
         (c.rel = "stylesheet"),
             (c.href =
-                "https://storage.googleapis.com/crewpass-production-loginbutton/crewpass-loginbutton-js-prod-aug2021.css?v=4"),
+                "https://storage.googleapis.com/crewpass-development-loginbutton/crewpass-loginbutton-js-dev-aug2021.css?v=4"),
             a.appendChild(c);
         var n = document.createElement("script");
         (n.type = "text/javascript"),
             (n.src =
-                "https://storage.googleapis.com/crewpass-production-loginbutton/crewpass-loginbutton-js-prod-aug2021.js?v=4"),
+                "https://storage.googleapis.com/crewpass-development-loginbutton/crewpass-loginbutton-js-dev-aug2021.js?v=4"),
             (n.onreadystatechange = t),
             (n.onload = t),
             a.appendChild(n);
@@ -29,6 +32,7 @@ onMounted(() => {
     ct(function () {
         new CrewPass({ v: "yourseasonalstaff" }).t(function () {});
     });
+    origin.value = window.location.origin;
 });
 </script>
 
@@ -50,7 +54,10 @@ onMounted(() => {
                     v-for="message in messages"
                     class="p-2 m-1 bg-gray-200 rounded-xl"
                 >
-                    <pre class="text-xs text-gray-600">{{ message }}</pre>
+                    <pre class="text-xs text-gray-600">{{
+                        message.origin
+                    }}</pre>
+                    <pre class="text-xs text-gray-600">{{ message.data }}</pre>
                 </li>
             </ul>
         </div>
