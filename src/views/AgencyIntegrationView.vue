@@ -1,8 +1,31 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { useEventListener } from "@vueuse/core";
+
+useEventListener(window, "message", (message: any) => {
+    console.log("message origin: ", message.origin);
+    console.log("message: ", message.data);
+});
+
 onMounted(() => {
-      function ct(t) {var a = document.head,c = document.createElement("link");(c.rel = "stylesheet"),(c.href = "https://storage.googleapis.com/crewpass-production-loginbutton/crewpass-loginbutton-js-prod-aug2021.css?v=4"),a.appendChild(c);var n = document.createElement("script");(n.type = "text/javascript"),(n.src = "https://storage.googleapis.com/crewpass-production-loginbutton/crewpass-loginbutton-js-prod-aug2021.js?v=4"),(n.onreadystatechange = t),(n.onload = t),a.appendChild(n);}
-      ct(function () {new CrewPass({v: "yourseasonalstaff"}).t(function(){})});
+    function ct(t) {
+        var a = document.head,
+            c = document.createElement("link");
+        (c.rel = "stylesheet"),
+            (c.href =
+                "https://storage.googleapis.com/crewpass-production-loginbutton/crewpass-loginbutton-js-prod-aug2021.css?v=4"),
+            a.appendChild(c);
+        var n = document.createElement("script");
+        (n.type = "text/javascript"),
+            (n.src =
+                "https://storage.googleapis.com/crewpass-production-loginbutton/crewpass-loginbutton-js-prod-aug2021.js?v=4"),
+            (n.onreadystatechange = t),
+            (n.onload = t),
+            a.appendChild(n);
+    }
+    ct(function () {
+        new CrewPass({ v: "yourseasonalstaff" }).t(function () {});
+    });
 });
 </script>
 
