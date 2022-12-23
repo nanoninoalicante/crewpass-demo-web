@@ -97,42 +97,44 @@ onMounted(() => {
                 Changed - Update
             </button>
             <CrewPassButton v-else :input-data="inputData"></CrewPassButton>
-            <div class="flex mt-4">
+            <div class="mt-4">
                 <p>
                     Url:
-                    <span class="text-sm text-gray-500 break-all">{{
-                        fullPoupupUrl
-                    }}</span>
+                    <span
+                        class="text-xs text-gray-500 text-clip overflow-hidden break-all"
+                        >{{ fullPoupupUrl }}</span
+                    >
                 </p>
             </div>
-            <div class="flex flex-col w-full md:w-[400px] mt-8">
-                <div v-for="item in inputs" class="my-1">
-                    <label
-                        class="text-sm italic ml-4 font-medium text-gray-400"
-                        for="inputData.data[item.key]"
-                        >{{ item.key }}
-                        <span
-                            v-if="
-                                item.key === 'cpCountryIsoCode' ||
-                                item.key === 'cpNationalityIsoCode'
-                            "
-                        >
-                            -
-                            <a
-                                href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
-                                target="_blank"
-                                class="underline hover:text-gray-600"
-                                >ISO 3166 Alpha-3</a
-                            ></span
-                        ></label
+        </div>
+
+        <div class="flex flex-col w-full md:w-[400px] mt-8">
+            <div v-for="item in inputs" class="my-1">
+                <label
+                    class="text-sm italic ml-4 font-medium text-gray-400"
+                    for="inputData.data[item.key]"
+                    >{{ item.key }}
+                    <span
+                        v-if="
+                            item.key === 'cpCountryIsoCode' ||
+                            item.key === 'cpNationalityIsoCode'
+                        "
                     >
-                    <input
-                        v-model="inputData.data[item.key]"
-                        name="inputData.data[item.key]"
-                        type="text"
-                        class="p-2 border-2 border-gray-200 w-full rounded-xl"
-                    />
-                </div>
+                        -
+                        <a
+                            href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
+                            target="_blank"
+                            class="underline hover:text-gray-600"
+                            >ISO 3166 Alpha-3</a
+                        ></span
+                    ></label
+                >
+                <input
+                    v-model="inputData.data[item.key]"
+                    name="inputData.data[item.key]"
+                    type="text"
+                    class="p-2 border-2 border-gray-200 w-full rounded-xl"
+                />
             </div>
         </div>
     </main>
