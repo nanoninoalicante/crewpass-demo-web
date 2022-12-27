@@ -8,7 +8,8 @@ const popupUrl = ref(
     import.meta.env.VITE_CP_POPUP_URL_CREW ||
         "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding"
 );
-const inputData: any = useStorage("cp-crew-button-data", {
+const storageKey = "cp-crew-button-data";
+const inputData: any = useStorage(storageKey, {
     data: {
         cpPopupUrl: popupUrl.value,
         cpPartner: "yotspot",
@@ -46,7 +47,17 @@ const update = () => {
 
 const restoreSettings = () => {
     inputData.value = null;
-    window.location.reload();
+    setTimeout(() => {
+        window.location.reload();
+    }, 300);
+};
+
+const clearCache = () => {
+    const user = useStorage("cp-crew-user", null);
+    user.value = null;
+    setTimeout(() => {
+        window.location.reload();
+    }, 300);
 };
 
 useEventListener(window, "message", (message: any) => {
@@ -67,9 +78,15 @@ onMounted(() => {
         <h1 id="title" class="text-lg font-medium">Crew Integration</h1>
         <button
             @click="restoreSettings"
-            class="mt-4 mb-10 py-2 px-4 rounded-xl bg-orange-400 hover:bg-gray-400 text-md font-medium"
+            class="mt-4 mb-1 py-2 px-4 rounded-xl bg-orange-400 hover:bg-gray-400 text-md font-medium"
         >
             Restore Default Settings
+        </button>
+        <button
+            @click="clearCache"
+            class="mt-4 mb-10 py-2 px-4 rounded-xl bg-orange-500 hover:bg-gray-400 text-md font-medium"
+        >
+            Clear Cache
         </button>
         <div id="cp-holder-1" class="flex justify-center flex-col items-center">
             <button
@@ -80,42 +97,44 @@ onMounted(() => {
                 Changed - Update
             </button>
             <CrewPassButton v-else :input-data="inputData"></CrewPassButton>
-            <div class="flex mt-4">
+            <div class="mt-4">
                 <p>
                     Url:
-                    <span class="text-sm text-gray-500 break-all">{{
-                        fullPoupupUrl
-                    }}</span>
+                    <span
+                        class="text-xs text-gray-500 text-clip overflow-hidden break-all"
+                        >{{ fullPoupupUrl }}</span
+                    >
                 </p>
             </div>
-            <div class="flex flex-col w-full md:w-[400px] mt-8">
-                <div v-for="item in inputs" class="my-1">
-                    <label
-                        class="text-sm italic ml-4 font-medium text-gray-400"
-                        for="inputData.data[item.key]"
-                        >{{ item.key }}
-                        <span
-                            v-if="
-                                item.key === 'cpCountryIsoCode' ||
-                                item.key === 'cpNationalityIsoCode'
-                            "
-                        >
-                            -
-                            <a
-                                href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
-                                target="_blank"
-                                class="underline hover:text-gray-600"
-                                >ISO 3166 Alpha-3</a
-                            ></span
-                        ></label
+        </div>
+
+        <div class="flex flex-col w-full md:w-[400px] mt-8">
+            <div v-for="item in inputs" class="my-1">
+                <label
+                    class="text-sm italic ml-4 font-medium text-gray-400"
+                    for="inputData.data[item.key]"
+                    >{{ item.key }}
+                    <span
+                        v-if="
+                            item.key === 'cpCountryIsoCode' ||
+                            item.key === 'cpNationalityIsoCode'
+                        "
                     >
-                    <input
-                        v-model="inputData.data[item.key]"
-                        name="inputData.data[item.key]"
-                        type="text"
-                        class="p-2 border-2 border-gray-200 w-full rounded-xl"
-                    />
-                </div>
+                        -
+                        <a
+                            href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
+                            target="_blank"
+                            class="underline hover:text-gray-600"
+                            >ISO 3166 Alpha-3</a
+                        ></span
+                    ></label
+                >
+                <input
+                    v-model="inputData.data[item.key]"
+                    name="inputData.data[item.key]"
+                    type="text"
+                    class="p-2 border-2 border-gray-200 w-full rounded-xl"
+                />
             </div>
         </div>
     </main>
