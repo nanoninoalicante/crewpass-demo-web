@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import moment from "moment";
-import { useEventListener, useLastChanged, useStorage } from "@vueuse/core";
+import { useEventListener, useLastChanged } from "@vueuse/core";
 import { useRoute } from "vue-router";
+const buttonCssUrl = import.meta.env.VITE_CP_AGENCY_ORIGINAL_CSS_URL;
+const buttonJsUrl = import.meta.env.VITE_CP_AGENCY_ORIGINAL_JS_URL;
+
 const route = useRoute();
 const messages: any = ref([]);
 const origin = ref("");
@@ -12,7 +14,7 @@ const commitId = ref("");
 const partnerId: any = ref(route.params?.agency || "crewpass");
 const lastChanged = useLastChanged(partnerId);
 const update = () => {
-    window.location.href = `/agency-original-dev/${partnerId.value}`;
+    window.location.href = `/agency-original/${partnerId.value}`;
 };
 
 useEventListener(window, "message", (message: any) => {
@@ -35,14 +37,10 @@ onMounted(() => {
     function ct(t) {
         var a = document.head,
             c = document.createElement("link");
-        (c.rel = "stylesheet"),
-            (c.href =
-                "https://storage.googleapis.com/crewpass-development-loginbutton/crewpass-loginbutton-js-dev-apr2023.css?v=4"),
-            a.appendChild(c);
+        (c.rel = "stylesheet"), (c.href = buttonCssUrl), a.appendChild(c);
         var n = document.createElement("script");
         (n.type = "text/javascript"),
-            (n.src =
-                "https://storage.googleapis.com/crewpass-development-loginbutton/crewpass-loginbutton-js-dev-apr2023.js?v=4"),
+            (n.src = buttonJsUrl),
             (n.onreadystatechange = t),
             (n.onload = t),
             a.appendChild(n);
@@ -57,7 +55,7 @@ onMounted(() => {
 <template>
     <main class="w-full md:w-4/5 flex flex-col justify-center items-center">
         <h1 id="title" class="text-lg font-medium">
-            Agency Integration Original - Dev
+            Agency Integration Original
         </h1>
         <div
             class="my-8 flex flex-col justify-center items-center mb-4 overflow-hidden break-all w-2/3"

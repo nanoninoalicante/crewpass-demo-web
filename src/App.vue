@@ -17,8 +17,8 @@ import { RouterView } from "vue-router";
                 >
                 <a
                     class="p-2 bg-gray-100 rounded-xl hover:bg-gray-300"
-                    href="/agency-original-dev"
-                    >Agency Integration (original) (dev)</a
+                    href="/agency-original"
+                    >Agency Integration (original)</a
                 >
             </nav>
         </div>
