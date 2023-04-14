@@ -10,9 +10,9 @@ const env = import.meta.env.VITE_ENVIRONMENT || "dev";
         target="_blank"
     >
         <div
-            class="w-full p-2 m-0 top-0 left-0 bg-red-800 text-white text-center cursor-pointer hover:bg-red-600"
+            class="w-full p-2 m-0 top-0 left-0 bg-red-800 text-white text-center cursor-pointer hover:bg-red-700"
         >
-            <p class="text-md">
+            <p class="text-sm font-normal">
                 This is running in development environment - for live/prod -
                 click here
             </p>
