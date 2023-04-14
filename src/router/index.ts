@@ -20,8 +20,13 @@ const router = createRouter({
             component: () => import("../views/CrewIntegrationCleanView.vue"),
         },
         {
-            path: "/agency-dev",
+            path: "/agency-original",
             name: "agencyintegration-dev",
+            component: () => import("../views/AgencyIntegrationView.vue"),
+        },
+        {
+            path: "/agency-original/:agency",
+            name: "agencyintegration-dev-agencyparam",
             component: () => import("../views/AgencyIntegrationView.vue"),
         },
         {
