@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 const env = import.meta.env.VITE_ENVIRONMENT || "dev";
+const testingPopupUrl = () => {
+    const baseUrl = `https://cp-agency-original-testing-popup.netlify.app/`;
+    const testingPopupUrl = new URL(baseUrl);
+    const queryParams = new URLSearchParams();
+    testingPopupUrl.search = queryParams.toString();
+    return testingPopupUrl.toString();
+};
 </script>
 
 <template>
@@ -34,6 +41,15 @@ const env = import.meta.env.VITE_ENVIRONMENT || "dev";
                     class="p-2 bg-gray-100 rounded-xl hover:bg-gray-300"
                     href="/agency-original"
                     >Agency Integration (original)</a
+                >
+                <a
+                    class="p-2 bg-gray-100 rounded-xl hover:bg-gray-300"
+                    :href="
+                        '/agency-original-testing-link' +
+                        '?popupUrl=' +
+                        testingPopupUrl()
+                    "
+                    >Agency Integration (original - testing)</a
                 >
             </nav>
         </div>
