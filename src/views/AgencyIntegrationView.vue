@@ -17,6 +17,7 @@ const lastChanged = useLastChanged(partnerId);
 
 const clear = () => {
     window.localStorage.clear();
+    window.sessionStorage.clear();
     window.location.reload();
 };
 
@@ -26,16 +27,12 @@ const update = () => {
     const urlObj: any = new URL(currentUrl);
     const baseUrl: any = `${urlObj.protocol}//${urlObj.host}/agency-original/${partnerId.value}`;
     const newUrlObj: any = new URL(baseUrl);
-    let queryParams: any = {};
-    const params = new URLSearchParams();
-    for (const key in queryParams) {
-        params.set(key, queryParams[key]);
-    }
 
-    newUrlObj.search = params.toString();
+    newUrlObj.search = urlObj.search ? urlObj.search.toString() : "";
     const urlWithParams = newUrlObj.toString();
 
     console.log("url ", urlWithParams);
+    window.location.href = urlWithParams;
 };
 
 useEventListener(window, "message", (message: any) => {
