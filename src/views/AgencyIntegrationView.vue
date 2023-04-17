@@ -8,13 +8,29 @@ const buttonJsUrl = import.meta.env.VITE_CP_AGENCY_ORIGINAL_JS_URL;
 const route = useRoute();
 const messages: any = ref([]);
 const origin = ref("");
-const popupUrl = ref("");
+const popupUrl = ref(route.query?.popupUrl || "");
+
 const commitId = ref("");
 
 const partnerId: any = ref(route.params?.agency || "crewpass");
 const lastChanged = useLastChanged(partnerId);
+
 const update = () => {
-    window.location.href = `/agency-original/${partnerId.value}`;
+    const currentUrl: any = window.location.href;
+
+    const urlObj: any = new URL(currentUrl);
+    const baseUrl: any = `${urlObj.protocol}//${urlObj.host}/agency-original/${partnerId.value}`;
+    const newUrlObj: any = new URL(baseUrl);
+    let queryParams: any = {};
+    const params = new URLSearchParams();
+    for (const key in queryParams) {
+        params.set(key, queryParams[key]);
+    }
+
+    newUrlObj.search = params.toString();
+    const urlWithParams = newUrlObj.toString();
+
+    console.log("url ", urlWithParams);
 };
 
 useEventListener(window, "message", (message: any) => {
@@ -34,6 +50,8 @@ useEventListener(window, "message", (message: any) => {
 });
 
 onMounted(() => {
+    console.log("css: ", buttonCssUrl);
+    console.log("js: ", buttonJsUrl);
     function ct(t) {
         var a = document.head,
             c = document.createElement("link");
@@ -46,7 +64,9 @@ onMounted(() => {
             a.appendChild(n);
     }
     ct(function () {
-        new CrewPass({ v: partnerId.value }).t(function () {});
+        new CrewPass({ v: partnerId.value, popupUrl: popupUrl.value }).t(
+            function () {}
+        );
     });
     origin.value = window.location.origin;
 });

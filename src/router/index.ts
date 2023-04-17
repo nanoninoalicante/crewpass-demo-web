@@ -26,6 +26,16 @@ const router = createRouter({
         },
         {
             path: "/agency-original/:agency",
+            name: "agencyintegration-dev-agencyparam-testing-link",
+            component: () => import("../views/AgencyIntegrationView.vue"),
+        },
+        {
+            path: "/agency-original-testing-link",
+            name: "agencyintegration-dev-testing-link",
+            component: () => import("../views/AgencyIntegrationView.vue"),
+        },
+        {
+            path: "/agency-original-testing-link/:agency",
             name: "agencyintegration-dev-agencyparam",
             component: () => import("../views/AgencyIntegrationView.vue"),
         },
