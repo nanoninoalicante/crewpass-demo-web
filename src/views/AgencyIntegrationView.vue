@@ -110,10 +110,12 @@ onMounted(() => {
                     Update
                 </button>
             </div>
-            <div class="flex flex-col my-4 space-y-4">
+            <div
+                class="flex flex-col my-4 space-y-4 justify-center items-center w-full md:w-[2/3]"
+            >
                 <button
                     @click="clear"
-                    class="py-2 px-4 rounded-3xl text-xl disabled:cursor-not-allowed font-medium bg-yellow-400 text-gray-700 hover:bg-yellow-300"
+                    class="py-2 px-4 w-36 rounded-3xl text-xl disabled:cursor-not-allowed font-medium bg-yellow-400 text-gray-700 hover:bg-yellow-300"
                 >
                     Clear
                 </button>
