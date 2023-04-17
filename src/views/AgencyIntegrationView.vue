@@ -15,6 +15,11 @@ const commitId = ref("");
 const partnerId: any = ref(route.params?.agency || "crewpass");
 const lastChanged = useLastChanged(partnerId);
 
+const clear = () => {
+    window.localStorage.clear();
+    window.location.reload();
+};
+
 const update = () => {
     const currentUrl: any = window.location.href;
 
@@ -106,6 +111,12 @@ onMounted(() => {
                 </button>
             </div>
             <div class="flex flex-col my-4 space-y-4">
+                <button
+                    @click="clear"
+                    class="py-2 px-4 rounded-3xl text-xl disabled:cursor-not-allowed font-medium bg-yellow-400 text-gray-700 hover:bg-yellow-300"
+                >
+                    Clear
+                </button>
                 <span class="text-xs break-all">Popup Url: {{ popupUrl }}</span>
                 <span class="text-xs break-all">Commit ID: {{ commitId }}</span>
             </div>
