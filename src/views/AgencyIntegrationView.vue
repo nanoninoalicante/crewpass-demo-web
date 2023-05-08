@@ -8,12 +8,13 @@ const buttonJsUrl = import.meta.env.VITE_CP_AGENCY_ORIGINAL_JS_URL;
 const route = useRoute();
 const messages: any = ref([]);
 const origin = ref("");
-const popupUrl = ref(route.query?.popupUrl || "");
+const popupUrl: any = ref(route.query?.popupUrl || "");
 
 const commitId = ref("");
 
 const partnerId: any = ref(route.params?.agency || "crewpass");
 const lastChanged = useLastChanged(partnerId);
+const lastChangedPopupUrl = useLastChanged(popupUrl);
 
 const clear = () => {
     window.localStorage.clear();
@@ -23,16 +24,32 @@ const clear = () => {
 
 const update = () => {
     const currentUrl: any = window.location.href;
-
     const urlObj: any = new URL(currentUrl);
     const baseUrl: any = `${urlObj.protocol}//${urlObj.host}/agency-original/${partnerId.value}`;
     const newUrlObj: any = new URL(baseUrl);
-
     newUrlObj.search = urlObj.search ? urlObj.search.toString() : "";
     const urlWithParams = newUrlObj.toString();
 
     console.log("url ", urlWithParams);
     window.location.href = urlWithParams;
+};
+
+const updatePopupUrl = () => {
+    const url = new URL(window.location.href);
+
+    // Create a new URLSearchParams object from the URL's search parameters
+    const searchParams = new URLSearchParams(url.search);
+
+    // Append the query string parameter
+    searchParams.append("popupUrl", popupUrl.value);
+
+    // Update the search property of the URL object with the modified search parameters
+    url.search = searchParams.toString();
+
+    const newUrl = url.toString();
+    console.log("newUrl ", newUrl);
+    // Navigate to the new URL
+    window.location.href = newUrl;
 };
 
 useEventListener(window, "message", (message: any) => {
@@ -80,17 +97,19 @@ onMounted(() => {
             Agency Integration Original
         </h1>
         <div
-            class="my-8 flex flex-col justify-center items-center mb-4 overflow-hidden break-all w-2/3"
+            class="my-8 flex flex-col justify-center items-center mb-4 overflow-hidden break-all w-full md:w-2/3 space-y-2"
         >
             <label for="agencyId" class="text-sm text-gray-500 py-4"
                 >Partner ID</label
             >
-            <div class="flex flex-row justify-stretch space-x-2">
+            <div
+                class="flex w-full flex-row justify-center items-stretch space-x-2"
+            >
                 <input
                     v-model="partnerId"
                     type="text"
                     name="agencyId"
-                    class="text-md font-medium p-4 rounded-3xl border-2 border-gray-200"
+                    class="text-md flex-auto font-medium p-4 rounded-3xl border-2 border-gray-200"
                     placeholder="partnerId"
                 />
 
@@ -103,6 +122,28 @@ onMounted(() => {
                             : 'bg-gray-200 text-gray-400 hover:bg-gray-200'
                     "
                     :disabled="!lastChanged"
+                >
+                    Update
+                </button>
+            </div>
+            <div class="flex flex-row justify-stretch w-full space-x-2">
+                <input
+                    v-model="popupUrl"
+                    type="text"
+                    name="popupUrl"
+                    class="text-md flex-auto font-medium p-4 rounded-3xl border-2 border-gray-200"
+                    placeholder="popup Url"
+                />
+
+                <button
+                    @click="updatePopupUrl"
+                    class="py-2 px-4 rounded-3xl text-xl disabled:cursor-not-allowed font-medium"
+                    :class="
+                        lastChangedPopupUrl
+                            ? 'bg-yellow-400 text-gray-700 hover:bg-yellow-300'
+                            : 'bg-gray-200 text-gray-400 hover:bg-gray-200'
+                    "
+                    :disabled="!lastChangedPopupUrl"
                 >
                     Update
                 </button>
