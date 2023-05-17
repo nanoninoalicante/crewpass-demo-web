@@ -161,6 +161,7 @@ onMounted(() => {
                 <span class="text-xs break-all">Commit ID: {{ commitId }}</span>
             </div>
         </div>
+        <form action="" id="demoForm"></form>
         <div id="cp-holder-1" class="w-full">
             <div id="cp-login-wrapper">
                 <div id="cp-login"></div>
